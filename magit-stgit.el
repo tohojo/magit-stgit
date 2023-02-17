@@ -724,8 +724,6 @@ the To, Cc, and Bcc fields for all patches."
 
 ;;; magit-stgit.el ends soon
 
-(define-obsolete-function-alias 'turn-on-magit-stgit 'magit-stgit-mode)
-
 (provide 'magit-stgit)
 ;; Local Variables:
 ;; indent-tabs-mode: nil
