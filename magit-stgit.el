@@ -453,10 +453,20 @@ into the series."
    ("-n" "Do not push the patches back after rebasing" "--nopush")
    ("-m" "Check for patches merged upstream"           "--merged")]
   ["Rebase"
-   ("R"  "Rebase"  magit-stgit-rebase)])
+   ("R"  "On current remote"  magit-stgit-rebase-remote)
+   ("o"  "On other commit"  magit-stgit-rebase-other)])
+
 
 ;;;###autoload
-(defun magit-stgit-rebase (&rest args)
+(defun magit-stgit-rebase-other (target &rest args)
+  "Rebase a StGit patch series.
+Use ARGS to pass additional arguments"
+  (interactive (list
+                (magit-transient-read-revision "Rebase target" nil nil)
+                (transient-args 'magit-stgit-rebase-popup)))
+  (magit-run-stgit "rebase" args "--" target))
+
+(defun magit-stgit-rebase-remote (&rest args)
   "Rebase a StGit patch series.
 Use ARGS to pass additional arguments"
   (interactive (transient-args 'magit-stgit-rebase-popup))
@@ -468,7 +478,7 @@ Use ARGS to pass additional arguments"
         (message "Updating remote...")
         (magit-run-git-async "remote" "update" remote)
         (message "Updating remote...done"))
-      (magit-run-stgit "rebase" args "--" (format "remotes/%s/%s" remote branch)))))
+      (magit-stgit-rebase-other (format "remotes/%s/%s" remote branch) args))))
 
 (transient-define-prefix magit-stgit-delete-popup ()
   "Popup console for StGit delete."
