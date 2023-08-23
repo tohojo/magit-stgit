@@ -266,6 +266,7 @@ Else, asks the user for a patch name."
 
    ["Repository"
     ("i" "Init" magit-stgit-init)
+    ("b" "Branch" magit-stgit-branch-popup)
     ("r" "Repair" magit-stgit-repair)
     ("R" "Rebase" magit-stgit-rebase-popup)
     ("c" "Commit"   magit-stgit-commit-popup)
@@ -445,6 +446,18 @@ into the series."
   (message "Repairing series...")
   (magit-run-stgit "repair")
   (message "Repairing series...done"))
+
+(transient-define-prefix magit-stgit-branch-popup ()
+  "Popup console for StGit branch."
+  :man-page "stg-branch"
+  ["Branch action"
+   ("c"  "Clone"  magit-stgit-branch-clone)])
+
+;;;###autoload
+(defun magit-stgit-branch-clone (target)
+  "Clone a StGit patch series to a new name."
+  (interactive (list (read-from-minibuffer "New branch name: " (magit-get-current-branch))))
+  (magit-run-stgit "branch" "--clone" target))
 
 (transient-define-prefix magit-stgit-rebase-popup ()
   "Popup console for StGit rebase."
