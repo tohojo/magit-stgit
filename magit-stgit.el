@@ -197,7 +197,7 @@ PROMPT."
         region
         (and use-marks
              (magit-stgit-patches-sorted magit-stgit-marked-patches))
-        (list (or (and use-point (magit-section-when stgit-patch))
+        (list (or (and use-point (magit-section-value-if 'stgit-patch))
                   (and prompt (magit-stgit-read-patch prompt nil nil require-match)))))))
 
 ;;; Marking
