@@ -385,6 +385,7 @@ Use ARGS to pass additional arguments."
   :man-page "stg-commit"
   ["Arguments"
    ("-s" "Commit all applied patches" "--all")
+   ("-e" "Allow empty patches to be committed" "--allow-empty")
    ("-n" "Commit the specified number of patches" "--number=" transient-read-number-N+)]
   ["Commit"
    ("c"  "Commit"  magit-stgit-commit)])
